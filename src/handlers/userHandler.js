@@ -29,7 +29,8 @@ const userUpdateHandler = async(id, email, password) => {
             message: "User not found"
         }
     } else{
-        const updated = await found.update({email, password});
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const updated = await found.update({email, password: hashedPassword});
         return updated;
     }
 };
